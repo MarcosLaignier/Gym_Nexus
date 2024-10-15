@@ -15,20 +15,20 @@ public abstract class BaseResource<T,ID> {
 
     @GetMapping("/{id}")
     public ResponseEntity<T> findById(@PathParam("id") Integer id) {
-        T acrescimo = (T) getService().getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(acrescimo);
+        T entityReturn = (T) getService().getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(entityReturn);
     }
 
     @PostMapping
-    public ResponseEntity<T> create(@RequestBody T novoAcrescimo) throws ServiceException {
-        T acrescimo = (T) getService().save(novoAcrescimo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(acrescimo);
+    public ResponseEntity<T> create(@RequestBody T entity) throws ServiceException {
+        T entityReturn = (T) getService().save(entity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(entityReturn);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<T> update(@RequestBody T acrescimoAtualizado){
-        T acrescimo = (T) getService().update(acrescimoAtualizado);
-        return ResponseEntity.status(HttpStatus.OK).body(acrescimo);
+    public ResponseEntity<T> update(@RequestBody T entity){
+        T entityReturn = (T) getService().update(entity);
+        return ResponseEntity.status(HttpStatus.OK).body(entityReturn);
     }
 
     @DeleteMapping
