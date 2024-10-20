@@ -5,13 +5,14 @@ export const navigation = [
     icon: 'home'
   },
   {
+    text: 'Planos',
+    path: '/pages/plano',
+    icon: 'product'
+  },
+  {
     text: 'Pessoa',
     path: '/pages/pessoa',
     icon: 'user'
   },
-  {
-    text: 'Planos',
-    path: '/pages/plano',
-    icon: 'user'
-  },
+
 ];
