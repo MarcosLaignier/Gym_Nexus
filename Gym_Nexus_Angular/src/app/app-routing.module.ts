@@ -71,11 +71,11 @@ const routes: Routes = [
 
   {path: 'pages/pessoa', component: PessoaComponent, canActivate: [AuthGuardService]},
   {path: 'pages/pessoa/edit', component: PessoaComponent, canActivate: [AuthGuardService]},
-  {path: 'pages/pessoa/edit/{id}', component: PessoaComponent, canActivate: [AuthGuardService]},
+  {path: 'pages/pessoa/edit/:id', component: PessoaComponent, canActivate: [AuthGuardService]},
 
   {path: 'pages/plano', component: PlanoComponent, canActivate: [AuthGuardService]},
   {path: 'pages/plano/edit', component: PlanoComponent, canActivate: [AuthGuardService]},
-  {path: 'pages/plano/edit/{id}', component: PlanoComponent, canActivate: [AuthGuardService]},
+  {path: 'pages/plano/edit/:id', component: PlanoComponent, canActivate: [AuthGuardService]},
 
 
 

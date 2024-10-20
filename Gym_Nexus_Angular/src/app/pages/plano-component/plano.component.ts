@@ -1,5 +1,5 @@
 import {Component, Injector, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModeEnum} from 'src/app/shared/enum/mode.enum';
 import notify from 'devextreme/ui/notify';
 import {DxFormComponent} from 'devextreme-angular';
@@ -10,6 +10,7 @@ import {AtivoInativoEnum} from "../../shared/enum/ativo.inativo.enum";
 import {Plano} from "../../shared/model/plano";
 import {PlanoService} from "../../shared/services/plano.service";
 import {formatCurrency} from "@angular/common";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -29,11 +30,13 @@ export class PlanoComponent extends CrudPadrao<Plano, any>{
   plano: Plano;
   protected readonly ModeEnum = ModeEnum;
   ativoInativoEnum = Object.values(AtivoInativoEnum);
-
+  ativoInativoEnumRefType = AtivoInativoEnum;
   constructor(injector: Injector,
               private mainService:PlanoService,
-              private router:Router) {
-    super(injector, "/plano");
+              http: HttpClient,
+              activatedRoute: ActivatedRoute,
+              router: Router) {
+    super(injector, "/plano",http, activatedRoute, router);
   }
 
   protected override doOnInit() {
@@ -72,10 +75,6 @@ export class PlanoComponent extends CrudPadrao<Plano, any>{
   }
 
   createPlano() {
-    this.router.navigate(['pages', 'plano', 'edit']);
+    this.navigateToEdit(true, null);
   }
-
-
-  protected readonly AtivoInativoEnum = AtivoInativoEnum;
-  protected readonly formatCurrency = formatCurrency;
 }

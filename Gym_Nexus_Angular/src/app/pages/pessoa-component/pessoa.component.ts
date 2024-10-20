@@ -1,6 +1,6 @@
 
 import {Component, Injector, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ModeEnum} from 'src/app/shared/enum/mode.enum';
 import notify from 'devextreme/ui/notify';
 import {DxFormComponent} from 'devextreme-angular';
@@ -10,6 +10,7 @@ import {PessoaService} from "../../shared/services/pessoa.service";
 import {CrudPadrao} from "../../shared/utils/crud/crud.padrao";
 import {CrudBaseComponent} from "../../shared/components/crud-component/crud.base.component";
 import {AtivoInativoEnum} from "../../shared/enum/ativo.inativo.enum";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -32,8 +33,11 @@ export class PessoaComponent extends CrudPadrao<Pessoa, any>{
 
   constructor(injector: Injector,
               private mainService:PessoaService,
-              private router:Router) {
-    super(injector, "/pessoa");
+              http: HttpClient,
+              activatedRoute: ActivatedRoute,
+              router: Router) {
+    super(injector, "/pessoa",http, activatedRoute, router);
+
   }
 
   protected override doOnInit() {
@@ -76,7 +80,7 @@ export class PessoaComponent extends CrudPadrao<Pessoa, any>{
   }
 
   createPessoa() {
-    this.router.navigate(['pages', 'pessoa', 'edit']);
+    this.navigateToEdit(true, null);
   }
 
 

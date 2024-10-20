@@ -63,6 +63,14 @@
       <dxi-column dataField='documento'></dxi-column>
       <dxi-column dataField='nascimento' dataType="date" [format]="dateFormat"></dxi-column>
       <dxi-column dataField='situacao'></dxi-column>
+      <dxi-column cellTemplate="btnEditCellTemplate" width="60"></dxi-column>
+
+      <!--==================== CELL TEMPLATE's ====================-->
+      <div *dxTemplate="let data of 'btnEditCellTemplate'">
+        <dx-button icon="edit" (onClick)="getByidRoute(data.data.id)">
+
+        </dx-button>
+      </div>
     </dx-data-grid>
   </div>
 
@@ -71,7 +79,7 @@
     <dx-tab-panel>
       <dxi-item title='Dados Gerais'>
         <dx-form #formularioPessoa
-                 [(formData)]='pessoa'
+                 [(formData)]='model'
                  [validationGroup]="'validatePessoa'"
                  class='formulario'>
 

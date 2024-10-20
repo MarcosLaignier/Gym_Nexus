@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import notify from "devextreme/ui/notify";
 import {CrudServicePadrao} from "../service/crud.service.padrao";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Directive()
@@ -17,7 +18,11 @@ export abstract class CrudPadrao<T,F> extends BaseCrudPadrao{
 
   dataSource: T[] = [];
 
-  http: HttpClient
+  // http: HttpClient
+  //
+  // activatedRoute: ActivatedRoute;
+  //
+  // router: Router = new Router();
 
   getFilter(): any {
     return this.filter;
@@ -107,6 +112,32 @@ export abstract class CrudPadrao<T,F> extends BaseCrudPadrao{
 
   }
 
+  getByidRoute(id:string){
+    this.navigateToEdit(false,id);
+    return this.getMainService().getById(id).subscribe(resp =>{
+      if(resp.body){
+        this.model = resp.body;
+      }
+    })
+  }
+
+  /** Metodo responsavel por navegar ate a rota de edit diante da rota atual
+   *
+   */
+  navigateToEdit(novo:boolean, idEdicao:any) {
+    // Obtendo a rota atual
+    const currentRoute = this.activatedRoute.snapshot.url.map(segment => segment.path).join('/');
+
+    // Montando a nova rota
+    let newRoute = `${currentRoute}/edit`;
+    if(!novo){
+      newRoute += `/${idEdicao}`;
+    }
+
+    // Navegando para a nova rota
+    this.router.navigate([newRoute]);
+  }
+
 
 
 
@@ -125,7 +156,10 @@ export abstract class CrudPadrao<T,F> extends BaseCrudPadrao{
 
 
   constructor( private _injector:Injector,
-               private urlPrefix:string) {
+               private urlPrefix:string,
+               protected http: HttpClient,
+               protected activatedRoute: ActivatedRoute,
+               protected router: Router) {
     super(_injector)
   }
 }
