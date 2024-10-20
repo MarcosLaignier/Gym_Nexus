@@ -1,14 +1,15 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {CrudServicePadrao} from "../utils/service/crud.service.padrao";
-import {Plano} from "../model/plano";
+import {Matricula} from "../model/matricula";
 
 @Injectable()
-export class PlanoService extends CrudServicePadrao<Plano,any> {
+export class MatriculaService extends CrudServicePadrao<Matricula,any> {
 
 
   constructor(http: HttpClient) {
-    super(http, 'plano');
+    super(http, 'matricula');
   }
 
 }
+
