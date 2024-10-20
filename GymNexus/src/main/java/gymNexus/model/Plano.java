@@ -34,6 +34,7 @@ public class Plano {
     @Temporal(TemporalType.DATE)
     private Date fim;
 
+    @ValidateField(message = "Informe a Situação do plano.")
     private AtivoInativoEnum situacao;
 
     @Version

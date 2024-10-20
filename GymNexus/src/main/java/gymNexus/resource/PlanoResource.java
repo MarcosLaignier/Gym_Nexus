@@ -3,6 +3,7 @@ package gymNexus.resource;
 import gymNexus.model.Pessoa;
 import gymNexus.model.Plano;
 import gymNexus.service.PessoaService;
+import gymNexus.service.PlanoService;
 import gymNexus.utils.Resource.BaseResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +21,16 @@ import java.util.List;
 public class PlanoResource extends BaseResource<Plano, Integer> {
 
     @Autowired
-    private PessoaService service;
+    private PlanoService service;
 
     @Override
-    public PessoaService getService() {
+    public PlanoService getService() {
         return service;
     }
 
     @GetMapping
-    public ResponseEntity<List<Pessoa>> findAll() {
-        List<Pessoa> result = service.findAll();
+    public ResponseEntity<List<Plano>> findAll() {
+        List<Plano> result = service.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
