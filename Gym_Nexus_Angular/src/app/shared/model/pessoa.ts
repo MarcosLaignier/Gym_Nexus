@@ -1,4 +1,5 @@
 import {AtivoInativoEnum} from "../enum/ativo.inativo.enum";
+import {PessoaTipo} from "./pessoa.tipo";
 
 export class Pessoa{
 
@@ -11,4 +12,8 @@ export class Pessoa{
   nascimento: Date;
 
   situacao: AtivoInativoEnum;
+
+  pessoaTipoList: PessoaTipo[];
+
+  versao: number;
 }
