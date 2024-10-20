@@ -50,11 +50,12 @@
       <dxi-column dataField='fim' dataType="date" [format]="dateFormat" width="150"></dxi-column>
       <dxi-column cellTemplate="btnEditCellTemplate" width="60"></dxi-column>
 
-<!--==================== CELL TEMPLATE's ====================-->
+      <!--==================== CELL TEMPLATE's ====================-->
       <div *dxTemplate="let data of 'btnEditCellTemplate'">
         <dx-button icon="edit" (onClick)="getByidRoute(data.data.id)">
 
         </dx-button>
+      </div>
     </dx-data-grid>
   </div>
 
@@ -93,7 +94,7 @@
             <dxi-item [isRequired]=' true'
                       dataField='fim'
                       template='fimTemplate'
-                      *ngIf="model.situacao == ativoInativoEnumRefType.INATIVO">
+                      *ngIf="model?.situacao == ativoInativoEnumRefType.INATIVO">
             </dxi-item>
           </dxi-item>
 
