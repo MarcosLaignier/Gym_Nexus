@@ -44,9 +44,10 @@
   <div *ngIf='mode == ModeEnum.List' crud-list-result-fields>
     <dx-data-grid [dataSource]='dataSource'>
       <dxi-column dataField='nome'></dxi-column>
-      <dxi-column dataField='inicio' dataType="date" [format]="dateFormat" width="150"></dxi-column>
-      <dxi-column dataField='nascimento' dataType="date" [format]="dateFormat" width="150"></dxi-column>
+      <dxi-column dataField='valor' dataType="number" [format]="currencyFormatPadrao" width="250"></dxi-column>
       <dxi-column dataField='situacao' width="250"></dxi-column>
+      <dxi-column dataField='inicio' dataType="date" [format]="dateFormat" width="150"></dxi-column>
+      <dxi-column dataField='fim' dataType="date" [format]="dateFormat" width="150"></dxi-column>
     </dx-data-grid>
   </div>
 
