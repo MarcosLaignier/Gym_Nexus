@@ -23,6 +23,8 @@ import {CrudBaseComponent} from "./shared/components/crud-component/crud.base.co
 import {DxToolbarModule} from "devextreme-angular/ui/toolbar";
 import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
+import {PlanoComponent} from "./pages/plano-component/plano.component";
+import {PlanoService} from "./shared/services/plano.service";
 
 const routes: Routes = [
   // {
@@ -69,17 +71,27 @@ const routes: Routes = [
 
   {path: 'pages/pessoa', component: PessoaComponent, canActivate: [AuthGuardService]},
   {path: 'pages/pessoa/edit', component: PessoaComponent, canActivate: [AuthGuardService]},
+  {path: 'pages/pessoa/edit/{id}', component: PessoaComponent, canActivate: [AuthGuardService]},
+
+  {path: 'pages/plano', component: PlanoComponent, canActivate: [AuthGuardService]},
+  {path: 'pages/plano/edit', component: PlanoComponent, canActivate: [AuthGuardService]},
+  {path: 'pages/plano/edit/{id}', component: PlanoComponent, canActivate: [AuthGuardService]},
+
+
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true}), DxDataGridModule, DxFormModule, DxButtonModule, DxToolbarModule, DxTextBoxModule, CommonModule, DxLoadPanelModule, ReactiveFormsModule, DxValidatorModule, DxTabPanelModule, DxDateBoxModule, DxSwitchModule, DxSelectBoxModule, DxNumberBoxModule],
-  providers: [AuthGuardService,PessoaService],
+  providers: [AuthGuardService,PessoaService, PlanoService],
   exports: [RouterModule],
   declarations: [
     HomeComponent,
     ProfileComponent,
     TasksComponent,
     PessoaComponent,
+    PlanoComponent,
     CrudBaseComponent
   ]
 })

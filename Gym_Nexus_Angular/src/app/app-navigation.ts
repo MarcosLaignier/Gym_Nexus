@@ -9,4 +9,9 @@ export const navigation = [
     path: '/pages/pessoa',
     icon: 'user'
   },
+  {
+    text: 'Planos',
+    path: '/pages/plano',
+    icon: 'user'
+  },
 ];

@@ -12,7 +12,9 @@ import {
 export abstract class BaseCrudPadrao implements AfterViewInit, OnInit, OnChanges, DoCheck, AfterContentInit,
   AfterContentChecked, OnDestroy, AfterViewChecked {
 
-  dateFormat = 'dd/MM/yyyy'
+  dateFormat = 'dd/MM/yyyy';
+  currencyFormatPadrao = 'R$ ##,##0.00';
+  diaHoje = new Date();
 
   ngAfterContentChecked(): void {
     this.doAfterChecked()
