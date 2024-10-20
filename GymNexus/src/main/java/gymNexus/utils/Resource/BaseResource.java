@@ -14,7 +14,7 @@ public abstract class BaseResource<T,ID> {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<T> findById(@PathParam("id") Integer id) {
+    public ResponseEntity<T> findById(@PathVariable ("id") Integer id) {
         T entityReturn = (T) getService().getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(entityReturn);
     }
