@@ -12,7 +12,6 @@
 
 <crud #crud
       (filtrar)="doFilter()"
-      (novoCadastro)="createPessoa()"
       (salvar)="doSave(this.model)"
       (clear)="doClear()"
       [editToolbarTitle]="'Cadastro de Pessoa'"
@@ -67,7 +66,7 @@
 
       <!--==================== CELL TEMPLATE's ====================-->
       <div *dxTemplate="let data of 'btnEditCellTemplate'">
-        <dx-button icon="edit" (onClick)="getByidRoute(data.data.id)">
+        <dx-button icon="edit" (onClick)="getByidRoute(data.data.id, this.model)">
 
         </dx-button>
       </div>

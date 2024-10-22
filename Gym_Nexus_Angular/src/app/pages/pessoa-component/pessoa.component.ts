@@ -11,6 +11,7 @@ import {CrudPadrao} from "../../shared/utils/crud/crud.padrao";
 import {CrudBaseComponent} from "../../shared/components/crud-component/crud.base.component";
 import {AtivoInativoEnum} from "../../shared/enum/ativo.inativo.enum";
 import {HttpClient} from "@angular/common/http";
+import {Plano} from "../../shared/model/plano";
 
 
 @Component({
@@ -33,8 +34,8 @@ export class PessoaComponent extends CrudPadrao<Pessoa, any>{
 
   constructor(injector: Injector,
               private mainService:PessoaService,
-              http: HttpClient,
               activatedRoute: ActivatedRoute,
+              http: HttpClient,
               router: Router) {
     super(injector, "/pessoa",http, activatedRoute, router);
 
@@ -44,8 +45,16 @@ export class PessoaComponent extends CrudPadrao<Pessoa, any>{
     let isEditing: boolean = this.router.url.split('/').includes('edit');
     if (isEditing) {
       this.mode = ModeEnum.Edit;
-      this.model = new Pessoa();
+      this.activatedRoute.paramMap.subscribe(params => {
+        const id = params.get('id');
+        if (id) {
+          this.getByidRoute(id, this.model); // Chama a função para buscar o modelo pelo ID
+        }else{
+          this.model = new Pessoa();
+        }
+      })
     }
+
   }
 
 
@@ -78,10 +87,5 @@ export class PessoaComponent extends CrudPadrao<Pessoa, any>{
     this.model.documento = this.model.documento.replace(/\./g, '').replace(/-/g, '');
     return super.beforeDoSave();
   }
-
-  createPessoa() {
-    this.navigateToEdit(true, null);
-  }
-
 
 }
