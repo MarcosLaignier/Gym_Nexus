@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ModeEnum} from "../../enum/mode.enum";
 
 @Component({
@@ -65,7 +65,8 @@ export class CrudBaseComponent {
 
   edit: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.edit = this.router.url.includes('edit/')
   }
 
@@ -76,6 +77,9 @@ export class CrudBaseComponent {
   novoCadEnv(e: any) {
     this.novoCadastro.emit(e);
     this.mode = ModeEnum.Edit;
+    this.navigateToEdit(true, null);
+
+
   }
 
   clearEnv(e: any) {
@@ -94,5 +98,23 @@ export class CrudBaseComponent {
     window.history.back();
   }
 
+
+  /** Metodo responsavel por navegar ate a rota de edit diante da rota atual
+   *
+   */
+  navigateToEdit(novo:boolean, idEdicao:any) {
+    // Obtendo a rota atual
+    const currentRoute = this.activatedRoute.snapshot.url.map(segment => segment.path).join('/');
+    // Montando a nova rota
+
+    let newRoute = `${currentRoute}`
+    if(!this.router.url.split('/').includes('edit')){
+      newRoute += `/edit`;
+    }
+
+
+    // Navegando para a nova rota
+    this.router.navigate([newRoute]);
+  }
 
 }

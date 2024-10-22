@@ -18,12 +18,6 @@ export abstract class CrudPadrao<T,F> extends BaseCrudPadrao{
 
   dataSource: T[] = [];
 
-  // http: HttpClient
-  //
-  // activatedRoute: ActivatedRoute;
-  //
-  // router: Router = new Router();
-
   getFilter(): any {
     return this.filter;
   }
@@ -112,11 +106,12 @@ export abstract class CrudPadrao<T,F> extends BaseCrudPadrao{
 
   }
 
-  getByidRoute(id:string){
+  getByidRoute(id:string, modelCrud:T){
     this.navigateToEdit(false,id);
     return this.getMainService().getById(id).subscribe(resp =>{
       if(resp.body){
         this.model = resp.body;
+        console.log(this.model)
       }
     })
   }
@@ -127,16 +122,37 @@ export abstract class CrudPadrao<T,F> extends BaseCrudPadrao{
   navigateToEdit(novo:boolean, idEdicao:any) {
     // Obtendo a rota atual
     const currentRoute = this.activatedRoute.snapshot.url.map(segment => segment.path).join('/');
-
     // Montando a nova rota
-    let newRoute = `${currentRoute}/edit`;
+
+    let newRoute = `${currentRoute}`
+    if(!this.router.url.split('/').includes('edit')){
+      newRoute += `/edit`;
+    }
     if(!novo){
-      newRoute += `/${idEdicao}`;
+      this.activatedRoute.paramMap.subscribe(params => {
+        const idRota = params.get('id'); // Tentativa de pegar o 'id' da rota
+
+        if (!idRota) {
+          newRoute += `/${idEdicao}`;
+
+        } else {
+        }
+      })
     }
 
     // Navegando para a nova rota
     this.router.navigate([newRoute]);
   }
+
+  protected override doOnInit() {
+
+    let isEditing: boolean = this.router.url.split('/').includes('edit');
+if(isEditing){
+
+}
+    super.doOnInit();
+  }
+
 
 
 
