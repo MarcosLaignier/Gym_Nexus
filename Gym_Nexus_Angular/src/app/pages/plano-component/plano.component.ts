@@ -1,5 +1,5 @@
 import {Component, Injector, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import {ModeEnum} from 'src/app/shared/enum/mode.enum';
 import notify from 'devextreme/ui/notify';
 import {DxFormComponent} from 'devextreme-angular';
@@ -31,6 +31,7 @@ export class PlanoComponent extends CrudPadrao<Plano, any>{
   protected readonly ModeEnum = ModeEnum;
   ativoInativoEnum = Object.values(AtivoInativoEnum);
   ativoInativoEnumRefType = AtivoInativoEnum;
+
   constructor(injector: Injector,
               private mainService:PlanoService,
               http: HttpClient,
@@ -43,10 +44,19 @@ export class PlanoComponent extends CrudPadrao<Plano, any>{
     let isEditing: boolean = this.router.url.split('/').includes('edit');
     if (isEditing) {
       this.mode = ModeEnum.Edit;
-      this.model = new Plano();
-      this.model.inicio = this.diaHoje;
-      this.model.situacao = AtivoInativoEnum.ATIVO;
+      this.activatedRoute.paramMap.subscribe(params => {
+        const id = params.get('id');
+        if (id) {
+          this.getByidRoute(id, this.model); // Chama a função para buscar o modelo pelo ID
+        }else{
+          this.model = new Plano();
+          this.model.inicio = this.diaHoje;
+          this.model.situacao = AtivoInativoEnum.ATIVO;
+        }
+      })
     }
+
+
   }
 
 
@@ -74,7 +84,4 @@ export class PlanoComponent extends CrudPadrao<Plano, any>{
     return super.beforeDoSave();
   }
 
-  createPlano() {
-    this.navigateToEdit(true, null);
-  }
 }
